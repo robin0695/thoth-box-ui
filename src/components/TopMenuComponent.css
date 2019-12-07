@@ -1,0 +1,64 @@
+.top-memu-title {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-style: italic;
+  font-size: 1.3em;
+
+}
+
+.ui.thoth-header-menu.menu {
+  border-top-width: 0 !important;
+  position: fixed;
+  width: 100%;
+  z-index: 998;
+}
+
+.ui.search {
+  border-top-width: 0 !important;
+  position: fixed;
+  width: 34%;
+  z-index: 999;
+  text-align: right;
+  padding: 12px 0 20px 0;
+  margin-left: 60%;
+}
+
+.ui.floated.menu {
+  margin: 0 !important;
+}
+
+.ui.segment.active.tab {
+  padding: 0 0 0 0;
+  margin: 43px 0 0 0;
+  position: fixed;
+  width: 56.30vw;
+
+}
+
+.ui.pointing.secondary.menu {
+  margin: 0 0 0 0;
+  position: fixed;
+  width: 56.30vw;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.ui.divided.grid.blog-main-div {
+  margin-top: 0rem;
+}
+
+.ui.grid>.row {
+  padding-bottom: 0rem !important;
+}
+
+.ui.items>.item:hover {
+  box-shadow: 0 5px 40px rgba(0, 0, 0, 0.04);
+}
+
+.item.blog-content-item {
+  padding: 1em 1em 2em 1em !important;
+}
+
+
+.five.wide.column.blog-main {
+  padding: 0 0 0 0 !important;
+}
