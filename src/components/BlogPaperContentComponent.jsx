@@ -46,7 +46,7 @@ export class BlogPaperContentComponent extends React.Component {
           render: () => {
             return (
               <Tab.Pane attached={false} stretched="true">
-                <Iframe url={`../paper_html/${element.fileName}`}
+                <Iframe url={`./paper_html/${element.fileName}`}
                   width="100%"
                   height="1000px"
                   id="myId"
