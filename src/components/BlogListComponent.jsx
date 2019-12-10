@@ -39,6 +39,9 @@ export class BlogListComponent extends React.Component {
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
+      params: {
+        'is_recommanded': true
+      },
       auth: {
         username: 'django',
         password: 'django'
@@ -60,18 +63,18 @@ export class BlogListComponent extends React.Component {
         {
           this.state.paperList.map((row, index) => {
             return (
-              <Item key={index} className="blog-content-item" onClick={
-                () => {
-                  const action = {
-                    type: 'openPaperItem',
-                    value: {
-                      paperTitle: row.paper_title,
-                      fileName: row.paper_id
+              <Item key={index} className="blog-content-item" >
+                <Item.Content><Item.Header as='a' onClick={
+                  () => {
+                    const action = {
+                      type: 'openPaperItem',
+                      value: {
+                        paperTitle: row.paper_title,
+                        fileName: row.paper_id
+                      }
                     }
-                  }
-                  store.dispatch(action)
-                }}>
-                <Item.Content><Item.Header as='a'>
+                    store.dispatch(action)
+                  }}>
                   <br />
                   <Label color='grey' ribbon>
                     Version: {row.paper_id === undefined ? row.paper_id : row.paper_id.substr(row.paper_id.length - 2, 2)}
@@ -98,28 +101,17 @@ export class BlogListComponent extends React.Component {
                   </Item.Extra>
 
                   <Item.Extra>
-                    <span className='cinema'>Categories: </span>
-                    <span>
-                      {
-                        row.categories === undefined
-                          ? console.log('ignore the empty one.')
-                          : row.categories.map((category, index) => {
-                            return (
-                              category.is_primary ? <b key={index}>{category.term + ' '}</b> : category.term + ' '
-                            )
-                          })
+                    <Label size="mini" as='a' src={row.paper_id} onClick={
+                      () => {
+                        window.open(row.paper_id)
+
                       }
-                    </span><br />
+                    }>
+                      <Icon name='file pdf outline' /> Original Link
+                  </Label>
                   </Item.Extra>
                   <Divider />
-                  <Item.Extra>
-                    <span>Tags: </span>
-                    <span>
-                      <Label as='a' tag> # Machine learning </Label>
-                      <Label as='a' tag> # NLP </Label>
-                      <Label as='a' tag> # Risk management</Label>
-                    </span>
-                  </Item.Extra>
+
                   <Item.Extra>
 
                     <Comment.Group>
@@ -136,19 +128,34 @@ export class BlogListComponent extends React.Component {
                           </Comment.Author>
                           <Comment.Text>
                             <ReactMarkdown
-                              source={' - (1) it generalizes better than networks trained using only the log-likelihood criterion, and\n - (2) it generates longer, more informative and more diverse responses with high utterance and topic relevance even with limited training data'}
+                              // source={' - (1) it generalizes better than networks trained using only the log-likelihood criterion, and\n - (2) it generates longer, more informative and more diverse responses with high utterance and topic relevance even with limited training data'}
+                              source={row.recommand_reason}
                             />
                           </Comment.Text>
-                          <Comment.Actions>
-                            <Comment.Action>Reply</Comment.Action>
-                            <Comment.Action> <Icon name='expand' /> Full-screen </Comment.Action>
-                          </Comment.Actions>
                         </Comment.Content>
                       </Comment>
                     </Comment.Group>
-                    <Button basic size='mini' content='View' icon='eye' label={{ as: 'a', basic: true, content: '1,048' }} labelPosition='right' />
-                    <Button basic size='mini' content='Like' icon='heart' label={{ as: 'a', basic: true, content: '2,08' }} labelPosition='right' />
-                    <Button basic size='mini' content='Comments' icon='comment' label={{ as: 'a', basic: true, content: '23' }} labelPosition='right' />
+                    <Button basic size='mini' content='View' icon='eye' label={{ basic: true, content: row.view_count }} labelPosition='right' />
+                    <Button basic size='mini' content='Like' icon='heart' label={{ as: 'a', basic: true, content: row.like_count }} labelPosition='right' onClick={
+                      () => {
+                        console.log(`http://104.45.130.215:8963/papers/${row.id}/paper_like`)
+                        axios({
+                          method: 'post',
+                          url: `http://104.45.130.215:8963/papers/${row.id}/paper_like/`,
+                          headers: {
+                            'Content-Type': 'application/json;charset=utf-8'
+                          },
+                          auth: {
+                            username: 'django',
+                            password: 'django'
+                          }
+                        }).then(function (res) {
+                          console.log(res.data.results)
+                        }).catch(function (error) {
+                          console.log(error)
+                        })
+                      }
+                    } />
                   </Item.Extra>
                 </Item.Content>
               </Item>
