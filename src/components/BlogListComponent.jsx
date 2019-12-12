@@ -116,7 +116,7 @@ export class BlogListComponent extends React.Component {
                     <Comment.Group>
                       <Comment>
                         <br />
-                        <Comment.Avatar as='a' src='./thoth/steve.jpg' />
+                        <Comment.Avatar as='a' src='./thoth/thoth_head.jpeg' />
                         <Comment.Content>
                           <Comment.Author>Thoth's Box:
 													<Icon name='github square' />
