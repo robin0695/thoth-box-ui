@@ -1,18 +1,9 @@
 const defaultState = {
   openPaperList: [{
-      paperTitle: 'robin test1',
-      fileName: '1805.11752v1.html'
-    },
-    {
-      paperTitle: 'loooooooooooooo',
-      fileName: '1805.11752v2.html'
-    },
-    {
-      paperTitle: 'sldkfjlskdj',
-      fileName: '1805.11752v3.html'
-    }
-  ],
-  activeIndex: 1
+    paperTitle: 'Welcome',
+    fileName: '1805.11752v1.html'
+  }],
+  activeIndex: 0
 }
 
 export default (state = defaultState, action) => {

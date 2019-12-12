@@ -104,7 +104,6 @@ export class BlogListComponent extends React.Component {
                     <Label size="mini" as='a' src={row.paper_id} onClick={
                       () => {
                         window.open(row.paper_id)
-
                       }
                     }>
                       <Icon name='file pdf outline' /> Original Link
