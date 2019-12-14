@@ -9,43 +9,44 @@ export class MenuExampleStackable extends React.Component {
     console.log(e)
   }
 
-  render () {
+  render() {
     const { activeItem } = this.state
     return (
       <Menu stretched="true" className="thoth-header-menu">
         <Menu.Item>
-          <Image src='./thoth/thoth-logo.jpeg' circular={true} size="mini" ></Image>
+          <Image
+            src="./thoth/thoth-logo.jpeg"
+            circular={true}
+            size="mini"
+          ></Image>
+        </Menu.Item>
+
+        <Menu.Item name="features" className="top-memu-title">
+          Thoth's Box
         </Menu.Item>
 
         <Menu.Item
-          name='features'
-          className="top-memu-title"
-        >
-          Thoth's Box
-  			</Menu.Item>
-
-        <Menu.Item
-          name='testimonials'
+          name="testimonials"
           active={activeItem === 'testimonials'}
           onClick={this.handleItemClick}
         >
-          About Us
-  			</Menu.Item>
+          About Us <div style={{ fontSize: '1em', color: 'grey' }}> v0.98</div>
+        </Menu.Item>
 
         <Menu.Item
-          name='sign-in'
+          name="sign-in"
           active={activeItem === 'sign-in'}
           onClick={this.handleItemClick}
         >
           Blog
-  			</Menu.Item>
+        </Menu.Item>
         <Menu.Item
-          name='admin'
+          name="admin"
           active={activeItem === 'admin'}
           onClick={this.handleItemClick}
         >
-          Admin
-  			</Menu.Item>
+          Workspace
+        </Menu.Item>
       </Menu>
     )
   }

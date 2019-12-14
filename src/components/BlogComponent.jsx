@@ -6,29 +6,28 @@ import { BlogPaperContentComponent } from './BlogPaperContentComponent.jsx'
 import { BlogSearchComponent } from './BlogSearchComponent.jsx'
 
 export class BlogComponent extends React.Component {
-  render () {
+  render() {
     return (
       <div>
-        <Grid divided >
-          <Grid.Row className='blog-header-menu'>
-            <Grid.Column ><MenuExampleStackable />
+        <Grid divided>
+          <Grid.Row className="blog-header-menu">
+            <Grid.Column>
+              <MenuExampleStackable />
               <BlogSearchComponent />
             </Grid.Column>
           </Grid.Row>
         </Grid>
         <Grid divided className="blog-main-div">
-          <Grid.Column className="bone-side-menu" width="1">
-          </Grid.Column>
+          <Grid.Column className="bone-side-menu" width="1"></Grid.Column>
           <Grid.Column className="blog-main" width="5">
             <BlogListComponent />
           </Grid.Column>
           <Grid.Column className="blog-paper-tabs" width="9">
             <BlogPaperContentComponent />
           </Grid.Column>
-          <Grid.Column width="1">
-          </Grid.Column>
+          <Grid.Column width="1"></Grid.Column>
         </Grid>
-      </div >
+      </div>
     )
   }
 }
