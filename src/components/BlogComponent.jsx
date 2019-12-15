@@ -4,6 +4,7 @@ import { MenuExampleStackable } from './TopMenuComponent.jsx'
 import { BlogListComponent } from './BlogListComponent.jsx'
 import { BlogPaperContentComponent } from './BlogPaperContentComponent.jsx'
 import { BlogSearchComponent } from './BlogSearchComponent.jsx'
+import { BlogRightSide } from './BlogRightSide.jsx'
 
 export class BlogComponent extends React.Component {
   render() {
@@ -25,7 +26,9 @@ export class BlogComponent extends React.Component {
           <Grid.Column className="blog-paper-tabs" width="9">
             <BlogPaperContentComponent />
           </Grid.Column>
-          <Grid.Column width="1"></Grid.Column>
+          <Grid.Column className="blog-right-menu-bar-base" width="1">
+            <BlogRightSide />
+          </Grid.Column>
         </Grid>
       </div>
     )

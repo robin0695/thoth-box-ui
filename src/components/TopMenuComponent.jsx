@@ -22,7 +22,7 @@ export class MenuExampleStackable extends React.Component {
         </Menu.Item>
 
         <Menu.Item name="features" className="top-memu-title">
-          Thoth's Box
+          Thoth's Box [v0.98]
         </Menu.Item>
 
         <Menu.Item
@@ -30,22 +30,15 @@ export class MenuExampleStackable extends React.Component {
           active={activeItem === 'testimonials'}
           onClick={this.handleItemClick}
         >
-          About Us <div style={{ fontSize: '1em', color: 'grey' }}> v0.98</div>
-        </Menu.Item>
-
-        <Menu.Item
-          name="sign-in"
-          active={activeItem === 'sign-in'}
-          onClick={this.handleItemClick}
-        >
-          Blog
+          About Us{' '}
         </Menu.Item>
         <Menu.Item
           name="admin"
+          disabled
           active={activeItem === 'admin'}
           onClick={this.handleItemClick}
         >
-          Workspace
+          <div style={{ color: 'grey' }}>My Box</div>
         </Menu.Item>
       </Menu>
     )
