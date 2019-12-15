@@ -10,6 +10,13 @@ export class BlogRightSide extends React.Component {
     return (
       <Menu icon vertical className="blog-right-side-menu-bar">
         <Menu.Item
+          name="viewed"
+          active={activeItem === 'viewed'}
+          onClick={this.handleItemClick}
+        >
+          <Icon name="window maximize" />
+        </Menu.Item>
+        <Menu.Item
           name="gamepad"
           active={activeItem === 'gamepad'}
           onClick={this.handleItemClick}
