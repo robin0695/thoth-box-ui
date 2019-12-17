@@ -9,12 +9,12 @@ export class BlogPaperContentComponent extends React.Component {
     super(props)
     this.state = paperContentStore.getState()
     this.handleTabChange = this.handleTabChange.bind(this)
-    paperContentStore.subscribe(
-      () => this.setState(paperContentStore.getState())
+    paperContentStore.subscribe(() =>
+      this.setState(paperContentStore.getState())
     )
   }
 
-  handleClick (e, fileName) {
+  handleClick(e, fileName) {
     e.preventDefault()
     if (e.nativeEvent.which === 1) {
     } else if (e.nativeEvent.which === 3) {
@@ -28,43 +28,48 @@ export class BlogPaperContentComponent extends React.Component {
     }
   }
 
-  handleTabChange (e, data) {
+  handleTabChange(e, data) {
     console.log(data.activeIndex)
     this.setState({ activeIndex: data.activeIndex })
   }
-  generatePaperPanes (openPaperList) {
+  generatePaperPanes(openPaperList) {
     let contentList = []
     openPaperList.forEach(element => {
-      contentList.push(
-        {
-          menuItem: {
-            key: element.fileName,
-            content: element.paperTitle,
-            onClick: (e) => this.handleClick(e, element.fileName),
-            onContextMenu: (e) => this.handleClick(e, element.fileName)
-          },
-          render: () => {
-            return (
-              <Tab.Pane attached={false} stretched="true">
-                <Iframe url={`/papers/${element.fileName}`}
-                  width="100%"
-                  height="1800px"
-                  id="myId"
-                  allow="fullscreen"
-                  className="blog-paper-content-iframe"
-                  display="initial"
-                  position="relative" />
-              </Tab.Pane >
-            )
-          }
+      let htmlFileName = element.fileName.split('/')[
+        element.fileName.split('/').length - 1
+      ]
+
+      contentList.push({
+        menuItem: {
+          key: element.fileName,
+          content: element.paperTitle,
+          onClick: e => this.handleClick(e, element.fileName),
+          onContextMenu: e => this.handleClick(e, element.fileName)
+        },
+        render: () => {
+          return (
+            <Tab.Pane attached={false} stretched="true">
+              <Iframe
+                url={`/papers/${htmlFileName}`}
+                width="100%"
+                height="1800px"
+                id="myId"
+                allow="fullscreen"
+                className="blog-paper-content-iframe"
+                display="initial"
+                position="relative"
+              />
+            </Tab.Pane>
+          )
         }
-      )
+      })
     })
     return contentList
   }
-  render () {
+  render() {
     return (
-      <Tab className="paper-tabs"
+      <Tab
+        className="paper-tabs"
         menu={{ secondary: true, pointing: true }}
         activeIndex={this.state.activeIndex}
         panes={this.generatePaperPanes(this.state.openPaperList)}

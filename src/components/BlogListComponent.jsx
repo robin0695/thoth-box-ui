@@ -86,6 +86,7 @@ export class BlogListComponent extends React.Component {
       }
     })
       .then(function(res) {
+        console.log(res)
         const action = {
           type: 'loadRecommandPaperList',
           value: {

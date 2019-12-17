@@ -1,11 +1,13 @@
 const defaultState = {
   openPaperList: [{
     paperTitle: 'Welcome',
-    fileName: '1805.11752v1.html'
+    fileName: 'http://arxiv.org/abs/1805.11752v1.html'
   }],
   activeIndex: 0,
   nextPage: "",
-  paperList: []
+  paperList: [],
+  paperContentMax: false,
+  paperContentSize: 9
 }
 export default (state = defaultState, action) => {
 
@@ -54,5 +56,19 @@ export default (state = defaultState, action) => {
     action.value.paperList.map((item, index) => newState.paperList.push(item))
     return newState
   }
+
+  if (action.type === 'paperContentMax') {
+    let newState = state
+    if (!state.paperContentMax) {
+      newState.paperContentMax = true
+      newState.paperContentSize = 14
+    } else {
+
+      newState.paperContentMax = false
+      newState.paperContentSize = 9
+    }
+    return newState
+  }
+
   return state
 }

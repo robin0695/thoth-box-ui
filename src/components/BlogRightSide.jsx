@@ -1,16 +1,26 @@
 import React from 'react'
 import { Menu, Icon } from 'semantic-ui-react'
+import store from '../store/index.js'
 
 export class BlogRightSide extends React.Component {
   state = { activeItem: 'gamepad' }
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+  handleItemClick = (e, { name }) => {
+    this.setState({ activeItem: name })
+    if (name === 'maxPaperContent') {
+      const action = {
+        type: 'paperContentMax',
+        value: ''
+      }
+      store.dispatch(action)
+    }
+  }
 
   render() {
     const { activeItem } = this.state
     return (
       <Menu icon vertical className="blog-right-side-menu-bar">
         <Menu.Item
-          name="viewed"
+          name="maxPaperContent"
           active={activeItem === 'viewed'}
           onClick={this.handleItemClick}
         >

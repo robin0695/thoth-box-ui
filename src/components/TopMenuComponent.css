@@ -28,16 +28,16 @@
 
 .ui.segment.active.tab {
   padding: 0 0 0 0;
-  margin: 43px 0 0 0;
-  position: fixed;
-  width: 57.2vw;
+  margin: 0px 0 0 0;
+  /* position: fixed; */
+  /* width: 57.2vw; */
 
 }
 
 .ui.pointing.secondary.menu {
   margin: 0 0 0 0;
-  position: fixed;
-  width: 57.20vw;
+  /* position: fixed; */
+  /* width: 57.20vw; */
   overflow-x: scroll;
   overflow-y: hidden;
 }
