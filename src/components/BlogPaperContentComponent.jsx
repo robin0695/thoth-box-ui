@@ -39,6 +39,7 @@ export class BlogPaperContentComponent extends React.Component {
         element.fileName.split('/').length - 1
       ]
 
+	    console.log(htmlFileName)
       contentList.push({
         menuItem: {
           key: element.fileName,
@@ -50,7 +51,7 @@ export class BlogPaperContentComponent extends React.Component {
           return (
             <Tab.Pane attached={false} stretched="true">
               <Iframe
-                url={`/papers/${htmlFileName}`}
+                url={`http://104.45.130.215:9963/${htmlFileName}.html`}
                 width="100%"
                 height="1800px"
                 id="myId"
