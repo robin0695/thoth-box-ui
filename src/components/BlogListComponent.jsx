@@ -24,9 +24,6 @@ export class BlogListComponent extends React.Component {
       nextListUrl: 'init',
       paperList: []
     }
-    store.subscribe(() => {
-      this.setState(store.getState())
-    })
   }
 
   handleUpdate = (e, { calculations }) => {
@@ -51,7 +48,6 @@ export class BlogListComponent extends React.Component {
             }
           })
             .then(function(res) {
-              console.log(res.data)
               const action = {
                 type: 'loadRecommandPaperList',
                 value: {
@@ -59,7 +55,6 @@ export class BlogListComponent extends React.Component {
                   nextPage: res.data.next
                 }
               }
-              console.log(action)
               store.dispatch(action)
             })
             .catch(function(error) {
@@ -71,6 +66,7 @@ export class BlogListComponent extends React.Component {
   }
 
   componentDidMount() {
+    if (store.getState().paperList.length > 0) return
     axios({
       method: 'get',
       url: 'http://104.45.130.215:8963/papers/',
@@ -86,7 +82,6 @@ export class BlogListComponent extends React.Component {
       }
     })
       .then(function(res) {
-        console.log(res)
         const action = {
           type: 'loadRecommandPaperList',
           value: {
@@ -101,9 +96,64 @@ export class BlogListComponent extends React.Component {
       })
   }
 
+  paperLike(paper_id, row_id) {
+    // console.log(`http://104.45.130.215:8963/papers/${row_id}/paper_like`)
+    axios({
+      method: 'post',
+      url: `http://104.45.130.215:8963/papers/${row_id}/paper_like/`,
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      auth: {
+        username: 'django',
+        password: 'django'
+      }
+    })
+      .then(function(res) {
+        const action = {
+          type: 'likePaper',
+          value: {
+            paper_id: paper_id
+          }
+        }
+        store.dispatch(action)
+      })
+      .catch(function(error) {
+        console.log(error)
+      })
+  }
+
+  viewPaper = row => {
+    const action = {
+      type: 'openPaperItem',
+      value: {
+        paperTitle: row.paper_title,
+        fileName: row.paper_id,
+        id: row.id,
+        paperId: row.paper_id
+      }
+    }
+    store.dispatch(action)
+
+    axios({
+      method: 'get',
+      url: `http://104.45.130.215:8963/papers/${row.id}`,
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      auth: {
+        username: 'django',
+        password: 'django'
+      }
+    }).then(function(res) {
+      console.log('For paper view count.')
+    })
+  }
+
   openPaperHtml(e) {
     console.log(e)
   }
+
   render() {
     return (
       <Item.Group>
@@ -112,19 +162,7 @@ export class BlogListComponent extends React.Component {
             return (
               <Item key={index} className="blog-content-item">
                 <Item.Content>
-                  <Item.Header
-                    as="a"
-                    onClick={() => {
-                      const action = {
-                        type: 'openPaperItem',
-                        value: {
-                          paperTitle: row.paper_title,
-                          fileName: row.paper_id
-                        }
-                      }
-                      store.dispatch(action)
-                    }}
-                  >
+                  <Item.Header as="a" onClick={this.viewPaper.bind(this, row)}>
                     <br />
                     <Label color="grey" ribbon>
                       Version:{' '}
@@ -196,6 +234,8 @@ export class BlogListComponent extends React.Component {
                       </Comment>
                     </Comment.Group>
                     <Button
+                      color="black"
+                      disabled
                       basic
                       size="mini"
                       content="View"
@@ -210,28 +250,7 @@ export class BlogListComponent extends React.Component {
                       icon="heart"
                       label={{ as: 'a', basic: true, content: row.like_count }}
                       labelPosition="right"
-                      onClick={() => {
-                        console.log(
-                          `http://104.45.130.215:8963/papers/${row.id}/paper_like`
-                        )
-                        axios({
-                          method: 'post',
-                          url: `http://104.45.130.215:8963/papers/${row.id}/paper_like/`,
-                          headers: {
-                            'Content-Type': 'application/json;charset=utf-8'
-                          },
-                          auth: {
-                            username: 'django',
-                            password: 'django'
-                          }
-                        })
-                          .then(function(res) {
-                            console.log(res.data.results)
-                          })
-                          .catch(function(error) {
-                            console.log(error)
-                          })
-                      }}
+                      onClick={this.paperLike.bind(this, row.paper_id, row.id)}
                     />
                   </Item.Extra>
                 </Item.Content>

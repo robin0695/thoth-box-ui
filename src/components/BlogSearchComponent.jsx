@@ -8,22 +8,16 @@ import './BlogSearchComponent.css'
 const initialState = { isLoading: false, results: [], value: '' }
 
 const resultRenderer = ({ title, description }) => (
-  <div >
-    <Header size='small' attached='top' textAlign='left'>
-      {title}
-    </Header>
-    <Segment attached textAlign='left' >
-      {description}
-    </Segment>
-  </div >
+  <div>
+    <p style={{ fontSize: 15, fontWeight: 'bold' }}>{title}</p>
+    <p style={{ fontSize: 12, fontWeight: 'normal' }}>{description}</p>
+  </div>
 )
 
 export class BlogSearchComponent extends Component {
   state = initialState
 
   handleResultSelect = (e, { result }) => {
-    console.log(e)
-    console.log({ result })
     const action = {
       type: 'openPaperItem',
       value: {
@@ -47,7 +41,7 @@ export class BlogSearchComponent extends Component {
       axios({
         method: 'get',
         url: 'http://104.45.130.215:8963/paper/search/',
-        params: { 'text': this.state.value },
+        params: { text: this.state.value },
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
         },
@@ -55,29 +49,33 @@ export class BlogSearchComponent extends Component {
           username: 'django',
           password: 'django'
         }
-      }).then(function (res) {
-        console.log(res.data.results)
-        res.data.results.map((item) => {
-          tempResults.push({ title: item.paper_title, description: item.summary.substr(0, 200) + '...', id: item.paper_id })
-        })
-        console.log(tempResults)
-        t.setState({
-          isLoading: false,
-          results: tempResults
-        })
-      }).catch(function (error) {
-        console.log(error)
       })
+        .then(function(res) {
+          res.data.results.map(item => {
+            tempResults.push({
+              title: item.paper_title,
+              description: item.summary.substr(0, 200) + '...',
+              id: item.paper_id
+            })
+          })
+          t.setState({
+            isLoading: false,
+            results: tempResults
+          })
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
     }, 300)
   }
 
-  render () {
+  render() {
     const { isLoading, value, results } = this.state
 
     return (
       <Grid.Column width={16}>
         <Search
-          aligned='right'
+          aligned="right"
           minCharacters={3}
           fluid={true}
           loading={isLoading}
@@ -91,7 +89,6 @@ export class BlogSearchComponent extends Component {
           {...this.props}
         />
       </Grid.Column>
-
     )
   }
 }

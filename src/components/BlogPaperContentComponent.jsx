@@ -14,6 +14,10 @@ export class BlogPaperContentComponent extends React.Component {
     )
   }
 
+  handleNormalClick(e, element) {
+    console.log(element)
+  }
+
   handleClick(e, fileName) {
     e.preventDefault()
     if (e.nativeEvent.which === 1) {
@@ -29,7 +33,6 @@ export class BlogPaperContentComponent extends React.Component {
   }
 
   handleTabChange(e, data) {
-    console.log(data.activeIndex)
     this.setState({ activeIndex: data.activeIndex })
   }
   generatePaperPanes(openPaperList) {
@@ -39,12 +42,11 @@ export class BlogPaperContentComponent extends React.Component {
         element.fileName.split('/').length - 1
       ]
 
-	    console.log(htmlFileName)
       contentList.push({
         menuItem: {
           key: element.fileName,
           content: element.paperTitle,
-          onClick: e => this.handleClick(e, element.fileName),
+          onClick: e => this.handleNormalClick(e, element),
           onContextMenu: e => this.handleClick(e, element.fileName)
         },
         render: () => {
@@ -53,12 +55,14 @@ export class BlogPaperContentComponent extends React.Component {
               <Iframe
                 url={`http://104.45.130.215:9963/${htmlFileName}.html`}
                 width="100%"
-                height="1800px"
+                height="2000px"
                 id="myId"
                 allow="fullscreen"
                 className="blog-paper-content-iframe"
                 display="initial"
                 position="relative"
+                overflow="hidden"
+                loading="auto"
               />
             </Tab.Pane>
           )
@@ -67,6 +71,7 @@ export class BlogPaperContentComponent extends React.Component {
     })
     return contentList
   }
+
   render() {
     return (
       <Tab

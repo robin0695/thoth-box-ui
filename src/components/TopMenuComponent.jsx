@@ -22,7 +22,7 @@ export class MenuExampleStackable extends React.Component {
         </Menu.Item>
 
         <Menu.Item name="features" className="top-memu-title">
-          Thoth's Box [v0.98]
+          Thoth's Box
         </Menu.Item>
 
         <Menu.Item

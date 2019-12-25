@@ -18,8 +18,8 @@
   width: 34%;
   z-index: 999;
   text-align: right;
-  padding: 12px 0 20px 0;
-  margin-left: 60%;
+  padding: 12px 0 20px 20px;
+  margin-left: 57%;
 }
 
 .ui.floated.menu {

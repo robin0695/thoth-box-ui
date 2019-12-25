@@ -25,30 +25,47 @@ export class BlogComponent extends React.Component {
           <Grid.Row className="blog-header-menu">
             <Grid.Column>
               <MenuExampleStackable />
+            </Grid.Column>
+            <Grid.Column only="tablet computer">
               <BlogSearchComponent />
             </Grid.Column>
+            <Grid.Column only="tablet computer" width="1"></Grid.Column>
           </Grid.Row>
         </Grid>
         <Grid divided className="blog-main-div">
           <Ref innerRef={this.contextRef}>
-            <Grid.Row>
+            <Grid.Row stretched>
               <Grid.Column className="bone-side-menu" width="1"></Grid.Column>
               {store.getState().paperContentMax === false ? (
-                <Grid.Column className="blog-main" width="5">
+                <Grid.Column
+                  className="blog-main"
+                  largeScreen="5"
+                  widescreen="5"
+                  tablet="5"
+                  mobile="14"
+                >
                   <BlogListComponent />
                 </Grid.Column>
               ) : (
                 ''
               )}
+
               <Grid.Column
                 className="blog-paper-tabs"
-                width={store.getState().paperContentSize}
+                stretched
+                largeScreen={store.getState().paperContentSize}
+                widescreen={store.getState().paperContentSize}
+                only="tablet computer"
               >
-                <Sticky context={this.contextRef} offset={107}>
+                <Sticky context={this.contextRef} offset={67}>
                   <BlogPaperContentComponent />
                 </Sticky>
               </Grid.Column>
-              <Grid.Column className="blog-right-menu-bar-base" width="1">
+              <Grid.Column
+                className="blog-right-menu-bar-base"
+                largeScreen="1"
+                only="tablet computer"
+              >
                 <Sticky context={this.contextRef} offset={107}>
                   <BlogRightSide />
                 </Sticky>
