@@ -159,6 +159,7 @@ export class BlogListComponent extends React.Component {
       <Item.Group>
         <Visibility onUpdate={_.debounce(this.handleUpdate, 500)}>
           {store.getState().paperList.map((row, index) => {
+            console.log(row)
             return (
               <Item key={index} className="blog-content-item">
                 <Item.Content>
