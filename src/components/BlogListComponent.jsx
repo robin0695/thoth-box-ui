@@ -16,6 +16,8 @@ import axios from 'axios'
 import ReactMarkdown from 'react-markdown'
 import './BlogComponent.css'
 import store from '../store/index.js'
+import { baseAPIUrl } from '../config/config.js'
+
 export class BlogListComponent extends React.Component {
   constructor() {
     super()
@@ -24,15 +26,19 @@ export class BlogListComponent extends React.Component {
       nextListUrl: 'init',
       paperList: []
     }
+    store.subscribe(() => {
+      this.setState(store.getState())
+    })
   }
 
   handleUpdate = (e, { calculations }) => {
     setTimeout(() => {
-      if (calculations.bottomVisible) {
+      if (calculations.percentagePassed > 0.8) {
         if (
           store.getState().nextPage !== '' &&
           store.getState().nextPage !== null
         ) {
+          console.log(this.state.nextPage)
           axios({
             method: 'get',
             url: this.state.nextPage,
@@ -69,7 +75,7 @@ export class BlogListComponent extends React.Component {
     if (store.getState().paperList.length > 0) return
     axios({
       method: 'get',
-      url: 'http://104.45.130.215:8963/papers/',
+      url: `${baseAPIUrl}/papers/`,
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
@@ -100,7 +106,7 @@ export class BlogListComponent extends React.Component {
     // console.log(`http://104.45.130.215:8963/papers/${row_id}/paper_like`)
     axios({
       method: 'post',
-      url: `http://104.45.130.215:8963/papers/${row_id}/paper_like/`,
+      url: `${baseAPIUrl}/papers/${row_id}/paper_like/`,
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
@@ -137,7 +143,7 @@ export class BlogListComponent extends React.Component {
 
     axios({
       method: 'get',
-      url: `http://104.45.130.215:8963/papers/${row.id}`,
+      url: `${baseAPIUrl}/papers/${row.id}`,
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
@@ -159,7 +165,6 @@ export class BlogListComponent extends React.Component {
       <Item.Group>
         <Visibility onUpdate={_.debounce(this.handleUpdate, 500)}>
           {store.getState().paperList.map((row, index) => {
-            console.log(row)
             return (
               <Item key={index} className="blog-content-item">
                 <Item.Content>

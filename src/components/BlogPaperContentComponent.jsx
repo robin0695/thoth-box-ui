@@ -55,7 +55,7 @@ export class BlogPaperContentComponent extends React.Component {
               <Iframe
                 url={`http://104.45.130.215:9963/${htmlFileName}.html`}
                 width="100%"
-                height="2000px"
+                height="1400px"
                 id="myId"
                 allow="fullscreen"
                 className="blog-paper-content-iframe"

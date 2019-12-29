@@ -2,6 +2,7 @@ import React from 'react'
 import { Menu, Icon } from 'semantic-ui-react'
 import store from '../store/index.js'
 import axios from 'axios'
+import { baseAPIUrl } from '../config/config.js'
 
 export class BlogRightSide extends React.Component {
   handleItemClick = (e, { name }) => {
@@ -15,7 +16,7 @@ export class BlogRightSide extends React.Component {
     if (name === 'like') {
       axios({
         method: 'post',
-        url: `http://104.45.130.215:8963/papers/${
+        url: `${baseAPIUrl}/papers/${
           store.getState().openPaperList[store.getState().activeIndex].id
         }/paper_like/`,
         headers: {

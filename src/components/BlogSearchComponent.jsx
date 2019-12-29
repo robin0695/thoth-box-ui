@@ -1,9 +1,10 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
-import { Search, Grid, Header, Segment } from 'semantic-ui-react'
+import { Search, Grid } from 'semantic-ui-react'
 import axios from 'axios'
 import store from '../store/index.js'
 import './BlogSearchComponent.css'
+import { baseAPIUrl } from '../config/config.js'
 
 const initialState = { isLoading: false, results: [], value: '' }
 
@@ -40,7 +41,7 @@ export class BlogSearchComponent extends Component {
       let tempResults = []
       axios({
         method: 'get',
-        url: 'http://104.45.130.215:8963/paper/search/',
+        url: `${baseAPIUrl}/paper/search/`,
         params: { text: this.state.value },
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
@@ -57,6 +58,7 @@ export class BlogSearchComponent extends Component {
               description: item.summary.substr(0, 200) + '...',
               id: item.paper_id
             })
+            return tempResults
           })
           t.setState({
             isLoading: false,
