@@ -223,12 +223,21 @@ export class BlogListComponent extends React.Component {
                         <Comment.Avatar as="a" src="./thoth/thoth_head.jpeg" />
                         <Comment.Content>
                           <Comment.Author>
-                            Thoth's Box:
-                            <Icon name="github square" />
-                            <Icon name="twitter square" />
-                            <Icon color="grey" name="facebook square" />
-                            <Icon name="globe" />
-                            <Icon name="database" />
+                            Thoth's said :-{' '}
+                            {row.code_url !== '' ? (
+                              <Icon
+                                name="github square"
+                                onClick={() => {
+                                  window.open(row.code_url)
+                                }}
+                              />
+                            ) : (
+                              <Icon name="github square" disabled />
+                            )}
+                            <Icon name="twitter square" disabled />
+                            <Icon name="facebook square" disabled />
+                            <Icon name="globe" disabled />
+                            <Icon name="database" disabled />
                           </Comment.Author>
                           <Comment.Text>
                             <ReactMarkdown
