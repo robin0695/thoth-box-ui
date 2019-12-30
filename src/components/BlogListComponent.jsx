@@ -32,8 +32,9 @@ export class BlogListComponent extends React.Component {
   }
 
   handleUpdate = (e, { calculations }) => {
+    console.log(calculations.bottomVisible)
     setTimeout(() => {
-      if (calculations.percentagePassed > 0.8) {
+      if (calculations.bottomVisible) {
         if (
           store.getState().nextPage !== '' &&
           store.getState().nextPage !== null
