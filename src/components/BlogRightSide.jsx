@@ -13,11 +13,15 @@ export class BlogRightSide extends React.Component {
       }
       store.dispatch(action)
     }
+    if (name === 'github') {
+      console.log(store.getState())
+      window.open(store.getState().currentPaper.code_url)
+    }
     if (name === 'like') {
       axios({
         method: 'post',
         url: `${baseAPIUrl}/papers/${
-          store.getState().openPaperList[store.getState().activeIndex].id
+          store.getState().currentPaper.id
         }/paper_like/`,
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
@@ -31,9 +35,7 @@ export class BlogRightSide extends React.Component {
           const action = {
             type: 'likePaper',
             value: {
-              paper_id: store.getState().openPaperList[
-                store.getState().activeIndex
-              ].paperId
+              paper_id: store.getState().currentPaper.paper_id
             }
           }
           store.dispatch(action)
@@ -54,24 +56,30 @@ export class BlogRightSide extends React.Component {
           <Icon name="heart" />
         </Menu.Item>
 
-        <Menu.Item name="website" onClick={this.handleItemClick}>
+        <Menu.Item name="website" disabled onClick={this.handleItemClick}>
           <Icon name="globe" />
         </Menu.Item>
 
-        <Menu.Item name="github" onClick={this.handleItemClick}>
-          <Icon name="github" />
-        </Menu.Item>
+        {store.getState().currentPaper.code_url === '' ? (
+          <Menu.Item name="github" disabled>
+            <Icon name="github" />
+          </Menu.Item>
+        ) : (
+          <Menu.Item name="github" onClick={this.handleItemClick}>
+            <Icon name="github" />
+          </Menu.Item>
+        )}
 
-        <Menu.Item name="datasource" onClick={this.handleItemClick}>
+        <Menu.Item name="datasource" disabled>
           <Icon name="database" />
         </Menu.Item>
-        <Menu.Item name="facebook" onClick={this.handleItemClick}>
+        <Menu.Item name="facebook" disabled>
           <Icon name="facebook" />
         </Menu.Item>
-        <Menu.Item name="twitter" onClick={this.handleItemClick}>
+        <Menu.Item name="twitter" disabled>
           <Icon name="twitter" />
         </Menu.Item>
-        <Menu.Item name="bookmark" onClick={this.handleItemClick}>
+        <Menu.Item name="bookmark" disabled>
           <Icon name="bookmark outline" />
         </Menu.Item>
       </Menu>

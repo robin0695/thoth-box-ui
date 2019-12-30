@@ -134,10 +134,11 @@ export class BlogListComponent extends React.Component {
     const action = {
       type: 'openPaperItem',
       value: {
-        paperTitle: row.paper_title,
-        fileName: row.paper_id,
+        paper_title: row.paper_title,
+        file_name: row.paper_id,
         id: row.id,
-        paperId: row.paper_id
+        paper_id: row.paper_id,
+        code_url: row.code_url
       }
     }
     store.dispatch(action)

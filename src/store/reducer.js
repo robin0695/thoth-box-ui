@@ -1,18 +1,20 @@
+const defaultPaper = {
+  id: 0,
+  paper_id: 'http://arxiv.org/abs/1805.11752v1',
+  paper_title: 'Welcome',
+  file_name: 'http://arxiv.org/abs/1805.11752v1',
+  code_url: ''
+}
 const defaultState = {
-  openPaperList: [
-    {
-      id: 0,
-      paper_id: 'http://arxiv.org/abs/1805.11752v1',
-      paperTitle: 'Welcome',
-      fileName: 'http://arxiv.org/abs/1805.11752v1'
-    }
-  ],
+  openPaperList: [defaultPaper],
+  currentPaper: defaultPaper,
   activeIndex: 0,
   nextPage: '',
   paperList: [],
   paperContentMax: false,
   paperContentSize: 9
 }
+
 export default (state = defaultState, action) => {
   // Open paper in paper content tabs
   if (action.type === 'openPaperItem') {
@@ -29,6 +31,7 @@ export default (state = defaultState, action) => {
     let newState = state
     newState.openPaperList.push(action.value)
     newState.activeIndex = newState.openPaperList.length - 1
+    newState.currentPaper = action.value
     return newState
   }
 
@@ -39,20 +42,23 @@ export default (state = defaultState, action) => {
         if (state.openPaperList.length > 0) {
           if (state.activeIndex - 1 >= 0) {
             newState.activeIndex = state.activeIndex - 1
-          } else newState.activeIndex = 0
-        } else newState.activeIndex = 0
+            newState.currentPaper = item
+          } else {
+            newState.activeIndex = 0
+            newState.currentPaper = defaultPaper
+          }
+        } else {
+          newState.activeIndex = 0
+          newState.currentPaper = defaultPaper
+        }
       }
     })
     newState.openPaperList = state.openPaperList.filter(
-      item => item.fileName !== action.value.fileName
+      item => item.file_name !== action.value.file_name
     )
     if (newState.openPaperList.length === 0) {
-      newState.openPaperList = [
-        {
-          paperTitle: 'Welcome',
-          fileName: '1805.11752v1.html'
-        }
-      ]
+      newState.openPaperList = [defaultPaper]
+      newState.currentPaper = defaultPaper
     }
     return newState
   }
@@ -61,7 +67,12 @@ export default (state = defaultState, action) => {
     let newState = state
     newState.nextPage = action.value.nextPage
     action.value.paperList.map((item, index) => newState.paperList.push(item))
-    console.log(newState)
+    return newState
+  }
+
+  if (action.type === 'switchOpenPaper') {
+    let newState = state
+    newState.currentPaper = action.value
     return newState
   }
 

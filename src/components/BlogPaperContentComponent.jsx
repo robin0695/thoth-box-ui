@@ -15,17 +15,22 @@ export class BlogPaperContentComponent extends React.Component {
   }
 
   handleNormalClick(e, element) {
+    const action = {
+      type: 'switchOpenPaper',
+      value: element
+    }
+    paperContentStore.dispatch(action)
     console.log(element)
   }
 
-  handleClick(e, fileName) {
+  handleClick(e, file_name) {
     e.preventDefault()
     if (e.nativeEvent.which === 1) {
     } else if (e.nativeEvent.which === 3) {
       const action = {
         type: 'closePaperItem',
         value: {
-          fileName: fileName
+          file_name: file_name
         }
       }
       paperContentStore.dispatch(action)
@@ -38,16 +43,16 @@ export class BlogPaperContentComponent extends React.Component {
   generatePaperPanes(openPaperList) {
     let contentList = []
     openPaperList.forEach(element => {
-      let htmlFileName = element.fileName.split('/')[
-        element.fileName.split('/').length - 1
+      let htmlFileName = element.file_name.split('/')[
+        element.file_name.split('/').length - 1
       ]
 
       contentList.push({
         menuItem: {
-          key: element.fileName,
-          content: element.paperTitle,
+          key: element.file_name,
+          content: element.paper_title,
           onClick: e => this.handleNormalClick(e, element),
-          onContextMenu: e => this.handleClick(e, element.fileName)
+          onContextMenu: e => this.handleClick(e, element.file_name)
         },
         render: () => {
           return (

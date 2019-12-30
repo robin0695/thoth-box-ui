@@ -22,8 +22,8 @@ export class BlogSearchComponent extends Component {
     const action = {
       type: 'openPaperItem',
       value: {
-        paperTitle: result.title,
-        fileName: result.id
+        paper_title: result.title,
+        file_name: result.id
       }
     }
     store.dispatch(action)
