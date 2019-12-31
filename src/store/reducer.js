@@ -1,8 +1,8 @@
 const defaultPaper = {
   id: 0,
-  paper_id: 'http://arxiv.org/abs/1805.11752v1',
+  paper_id: 'http://arxiv.org/abs/thoth_box_welcome_final',
   paper_title: 'Welcome',
-  file_name: 'http://arxiv.org/abs/1805.11752v1',
+  file_name: 'http://arxiv.org/abs/thoth_box_welcome_final',
   code_url: ''
 }
 const defaultState = {
