@@ -1,4 +1,4 @@
 export const baseAPIUrl =
-  process.env.REACT_APP_ENV === 'local'
-    ? 'http://localhost:8000'
-    : 'http://104.45.130.215:8963'
+  process.env.REACT_APP_ENV === 'local' ?
+  'http://localhost:8000' :
+  'https://thoth-box.com/api/'

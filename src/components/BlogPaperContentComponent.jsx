@@ -58,9 +58,9 @@ export class BlogPaperContentComponent extends React.Component {
           return (
             <Tab.Pane attached={false} stretched="true">
               <Iframe
-                url={`http://104.45.130.215:9963/${htmlFileName}.html`}
+                url={`https://thoth-box.com/paper_html/${htmlFileName}.html`}
                 width="100%"
-                height="1400px"
+                height="100%"
                 id="myId"
                 allow="fullscreen"
                 className="blog-paper-content-iframe"

@@ -32,14 +32,12 @@ export class BlogListComponent extends React.Component {
   }
 
   handleUpdate = (e, { calculations }) => {
-    console.log(calculations.bottomVisible)
     setTimeout(() => {
       if (calculations.bottomVisible) {
         if (
           store.getState().nextPage !== '' &&
           store.getState().nextPage !== null
         ) {
-          console.log(this.state.nextPage)
           axios({
             method: 'get',
             url: this.state.nextPage,
@@ -165,7 +163,7 @@ export class BlogListComponent extends React.Component {
   render() {
     return (
       <Item.Group>
-        <Visibility onUpdate={_.debounce(this.handleUpdate, 500)}>
+        <Visibility onUpdate={_.debounce(this.handleUpdate, 500)} offset="5">
           {store.getState().paperList.map((row, index) => {
             return (
               <Item key={index} className="blog-content-item">

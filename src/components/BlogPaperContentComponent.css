@@ -21,3 +21,11 @@
 .ui.secondary.pointing.menu .item {
   margin: 0 !important;
 }
+
+.paper-tabs {
+  height: 1500px;
+}
+
+.paper-tabs>.tab {
+  height: inherit;
+}
